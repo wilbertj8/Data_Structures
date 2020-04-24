@@ -1,0 +1,34 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Calculator {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		Stack<Integer> results = new Stack<Integer>();
+		System.out.println("Enter one number or operator per line. Q to quit. ");
+		boolean done = false;
+		while (!done) {
+			String input = in.nextLine();
+			//if the command is an operator, pop the arguments and push the result
+			if (input.equals("+"))
+				results.push(results.pop() + results.pop());
+			else if (input.equals("-")) {
+				Integer arg2 = results.pop();
+				results.push(results.pop() - arg2);
+			} 
+			else if (input.equals("*") || input.equals("x"))
+				results.push(results.pop() * results.pop());
+			else if (input.equals("/")) {
+				Integer arg2 = results.pop();
+				results.push(results.pop() / arg2);
+			}
+			else if (input.equalsIgnoreCase("q"))
+				done = true;
+			//not an operator–push the input value
+			else
+				results.push(Integer.parseInt(input));
+			System.out.println(results);
+		}
+		in.close();
+	}
+}
